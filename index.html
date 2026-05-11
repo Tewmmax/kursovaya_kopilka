@@ -79,13 +79,12 @@
             document.getElementById('status').innerHTML = '⏳ Загрузка...';
             
             try {
-                // Читаем JSON-файл из репозитория
                 const response = await fetch('balance.json?t=' + Date.now());
-                if (!response.ok) throw new Error('Ошибка загрузки');
+                if (!response.ok) throw new Error('Ошибка загрузки: ' + response.status);
                 
                 const data = await response.json();
                 
-                // Обновляем баланс
+                // Обновляем баланс (переводим из копеек в рубли)
                 const rubles = (data.balance / 100).toFixed(2);
                 document.getElementById('balance').innerHTML = rubles;
                 
